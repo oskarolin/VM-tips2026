@@ -6,22 +6,15 @@
 <title>VM-Tips 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green:#00C853; --green-dark:#00a844; --gold:#FFD600;
-    --bg:#0a0f0a; --surface:#111811; --surface2:#182018;
-    --border:rgba(255,255,255,0.08); --text:#f0f4f0; --muted:#7a8c7a;
-    --bonus-bg:rgba(255,214,0,0.07); --bonus-border:rgba(255,214,0,0.22);
-  }
+  :root{--green:#00C853;--green-dark:#00a844;--gold:#FFD600;--bg:#0a0f0a;--surface:#111811;--surface2:#182018;--border:rgba(255,255,255,0.08);--text:#f0f4f0;--muted:#7a8c7a;--bonus-bg:rgba(255,214,0,0.07);--bonus-border:rgba(255,214,0,0.22);}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
   body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,200,83,0.04) 59px,rgba(0,200,83,0.04) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,200,83,0.04) 59px,rgba(0,200,83,0.04) 60px);pointer-events:none;z-index:0;}
-  .wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 16px 60px;}
+  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 16px 60px;}
 
-  /* SETUP BANNER */
   #setupBanner{background:rgba(255,82,82,0.1);border:1px solid rgba(255,82,82,0.35);border-radius:12px;padding:18px 20px;margin-bottom:24px;font-size:14px;color:#ff8a80;line-height:1.6;}
   #setupBanner strong{color:#ff5252;display:block;font-size:15px;margin-bottom:6px;}
   #setupBanner input{width:100%;margin-top:10px;background:var(--bg);border:1px solid rgba(255,82,82,0.4);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 13px;outline:none;}
-  #setupBanner input:focus{border-color:#ff5252;}
   #setupBanner button{margin-top:10px;background:#ff5252;color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;cursor:pointer;}
 
   header{text-align:center;padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px;}
@@ -35,14 +28,14 @@
 
   .panel{display:none;} .panel.active{display:block;animation:fadeIn .25s ease;}
 
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px 28px;margin-bottom:18px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:18px;}
   .card.bonus-style{background:var(--bonus-bg);border-color:var(--bonus-border);}
   .card h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--green);margin-bottom:4px;}
   .card.bonus-style h2{color:var(--gold);}
   .desc{color:var(--muted);font-size:14px;margin-bottom:20px;}
 
-  .field{margin-bottom:15px;}
-  label{display:block;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .field{margin-bottom:14px;}
+  label{display:block;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
   .bonus-style label{color:rgba(255,214,0,.6);}
   input[type="text"],input[type="number"],select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;padding:10px 13px;outline:none;transition:border-color .15s;appearance:none;}
   input:focus,select:focus{border-color:var(--green);}
@@ -50,22 +43,23 @@
   select option{background:#111811;}
   .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle;background:var(--gold);color:#000;}
 
+  /* Groups grid */
+  .groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:22px;}
+  .group-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;}
+  .group-card:focus-within{border-color:var(--green);}
+  .group-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--green);margin-bottom:12px;}
+  .place-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .place-num{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);width:22px;flex-shrink:0;}
+  .place-num.p1{color:var(--gold);}
+  .place-num.p2{color:#C0C0C0;}
+  .place-num.p3{color:#CD7F32;}
+  .place-row select{font-size:13px;padding:7px 10px;}
+
   .pts-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
   .pts-pill{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center;flex:1;min-width:80px;}
   .pts-pill .n{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--green);}
-  .pts-pill.gold .n{color:var(--gold);} .pts-pill .l{font-size:11px;color:var(--muted);margin-top:1px;}
-
-  .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:10px;margin-bottom:20px;}
-  .match-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;transition:border-color .15s;}
-  .match-card:focus-within{border-color:var(--green);}
-  .mlbl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  .mteams{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
-  .tn{font-size:14px;font-weight:600;flex:1;} .tn.r{text-align:right;}
-  .vs{font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--muted);flex-shrink:0;}
-  .srow{display:flex;align-items:center;gap:6px;}
-  .sbox{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:23px;text-align:center;padding:7px 3px;outline:none;transition:border-color .15s;}
-  .sbox:focus{border-color:var(--green);}
-  .ssep{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);flex-shrink:0;}
+  .pts-pill.gold .n{color:var(--gold);}
+  .pts-pill .l{font-size:11px;color:var(--muted);margin-top:1px;}
 
   .btn{width:100%;background:var(--green);color:#000;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;padding:13px;cursor:pointer;transition:background .15s,transform .1s;}
   .btn:hover{background:var(--green-dark);} .btn:active{transform:scale(.99);}
@@ -94,17 +88,23 @@
   .empty{text-align:center;padding:52px 20px;color:var(--muted);}
   .empty .ico{font-size:40px;margin-bottom:10px;}
 
-  /* Admin bonus */
+  /* Admin */
   .adm-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;background:var(--bg);border:1px solid var(--bonus-border);border-radius:8px;padding:9px 13px;}
   .adm-lbl{flex:1;font-size:14px;font-weight:500;color:var(--gold);min-width:170px;}
   .adm-row input,.adm-row select{flex:1;min-width:140px;background:var(--surface2);border-color:var(--bonus-border);padding:8px 11px;font-size:14px;}
-  .res-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;}
-  .res-lbl{flex:1;font-size:14px;font-weight:500;}
   .notice{background:var(--surface2);border-left:3px solid var(--gold);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5;}
 
-  /* Spinner */
-  .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
-  .spin.light{border-color:rgba(255,255,255,.2);border-top-color:var(--green);}
+  /* Admin group facit */
+  .admin-groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:20px;}
+  .admin-group-card{background:var(--bg);border:1px solid var(--bonus-border);border-radius:10px;padding:14px;}
+  .admin-group-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;}
+  .admin-place-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+  .admin-place-num{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:20px;flex-shrink:0;}
+  .admin-place-num.p1{color:var(--gold);} .admin-place-num.p2{color:#C0C0C0;} .admin-place-num.p3{color:#CD7F32;}
+  .admin-place-row select{font-size:13px;padding:6px 9px;background:var(--surface2);border-color:var(--bonus-border);}
+
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,0,0,.25);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+  .spin.light{border-color:rgba(255,255,255,.15);border-top-color:var(--green);}
 
   @keyframes spin{to{transform:rotate(360deg);}}
   @keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
@@ -117,10 +117,9 @@
 <body>
 <div class="wrap">
 
-  <!-- SETUP-BANNER (visas tills URL är sparad) -->
   <div id="setupBanner">
-    <strong>⚙️ Steg 1 av 1 — Klistra in din Apps Script-URL</strong>
-    Följ installationsguiden för att skapa din backend. Klistra sedan in webbadressen nedan — den sparas och visas aldrig igen.
+    <strong>⚙️ Klistra in din Apps Script-URL</strong>
+    Följ installationsguiden för att skapa din backend. Klistra sedan in webbadressen nedan.
     <input type="text" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/XXXXX/exec">
     <button onclick="saveScriptUrl()">Spara URL och starta →</button>
   </div>
@@ -128,7 +127,7 @@
   <header>
     <div class="hbadge">⚽ Fotbolls-VM 2026</div>
     <h1>VM<br>TIPS</h1>
-    <p>Tippa matcher &amp; bonusfrågor — alla ser samma tabell live</p>
+    <p>Tippa gruppplaceringar &amp; bonusfrågor — alla ser samma tabell live</p>
   </header>
 
   <div class="tabs">
@@ -150,35 +149,32 @@
 
     <div class="card">
       <h2>Gruppspelet</h2>
-      <p class="desc">Tippa slutresultatet för varje match. Sparas direkt till Google Sheets.</p>
+      <p class="desc">Tippa slutplaceringen 1–4 i varje grupp. Välj lag i rätt ordning.</p>
       <div class="pts-row">
-        <div class="pts-pill"><div class="n">3</div><div class="l">Rätt 1X2</div></div>
-        <div class="pts-pill"><div class="n">+2</div><div class="l">Rätt hemma</div></div>
-        <div class="pts-pill"><div class="n">+2</div><div class="l">Rätt borta</div></div>
-        <div class="pts-pill"><div class="n">+5</div><div class="l">Exakt rätt</div></div>
+        <div class="pts-pill"><div class="n">5p</div><div class="l">Per rätt placering</div></div>
+        <div class="pts-pill"><div class="n">4 st</div><div class="l">Placeringar/grupp</div></div>
+        <div class="pts-pill"><div class="n">240p</div><div class="l">Max grupppoäng</div></div>
       </div>
-      <div class="matches-grid" id="matchesGrid"></div>
-      <button class="btn" id="saveTipsBtn" onclick="submitAllTips()">Spara alla matcher →</button>
+      <div class="groups-grid" id="groupsGrid"></div>
+      <button class="btn" id="saveGroupsBtn" onclick="submitGroups()">Spara gruppplaceringar →</button>
     </div>
 
     <div class="card bonus-style">
       <h2>⭐ Bonusfrågor</h2>
-      <p class="desc">Varje rätt svar = <strong>10 poäng</strong>. Du kan uppdatera dina svar under turneringen.</p>
+      <p class="desc">Varje rätt svar = <strong>10 poäng</strong>.</p>
       <div class="pts-row">
         <div class="pts-pill gold"><div class="n">10p</div><div class="l">Per rätt svar</div></div>
         <div class="pts-pill gold"><div class="n">8 st</div><div class="l">Frågor</div></div>
         <div class="pts-pill gold"><div class="n">80p</div><div class="l">Max bonus</div></div>
       </div>
-
       <div class="field"><label>🏆 Vilket land vinner VM? <span class="badge">10p</span></label><select id="bq_winner"><option value="">— Välj land —</option></select></div>
       <div class="field"><label>🥈 Finalförlörare (2:a plats)? <span class="badge">10p</span></label><select id="bq_second"><option value="">— Välj land —</option></select></div>
       <div class="field"><label>🥉 Bronsmedaljör (3:e plats)? <span class="badge">10p</span></label><select id="bq_third"><option value="">— Välj land —</option></select></div>
-      <div class="field"><label>👟 Skytteligavinnare (flest mål)? <span class="badge">10p</span></label><input type="text" id="bq_topscorer" placeholder="Ex: Mbappe, Haaland..."></div>
+      <div class="field"><label>👟 Skytteligavinnare? <span class="badge">10p</span></label><input type="text" id="bq_topscorer" placeholder="Ex: Mbappe, Gyökeres..."></div>
       <div class="field"><label>🟥 Vilket land får FÖRSTA röda kortet? <span class="badge">10p</span></label><select id="bq_redcard"><option value="">— Välj land —</option></select></div>
       <div class="field"><label>🎽 Vilket land gör FÖRSTA självmålet? <span class="badge">10p</span></label><select id="bq_owngoal"><option value="">— Välj land —</option></select></div>
       <div class="field"><label>🥅 Totalt antal straffar i hela turneringen? <span class="badge">10p</span></label><input type="number" id="bq_penalties" min="0" max="300" placeholder="Ex: 24"></div>
       <div class="field"><label>🌟 Vem vinner Guldbollen? <span class="badge">10p</span></label><input type="text" id="bq_goldball" placeholder="Ex: Bellingham, Pedri..."></div>
-
       <button class="btn gold-btn" id="saveBonusBtn" onclick="submitBonus()">Spara bonussvar →</button>
     </div>
   </div>
@@ -200,20 +196,20 @@
   <!-- ADMIN -->
   <div id="panel-admin" class="panel">
     <div class="card">
-      <h2>Matchresultat</h2>
-      <p class="desc">Fyll i verkliga resultat — poängen räknas om för alla direkt.</p>
-      <div class="notice">🔒 Bara du som admin ser denna flik. Dela <em>inte</em> admin-lösenordet. Spara varje match direkt efter full tid.</div>
-      <div id="resultsForm"></div>
-      <button class="btn" id="saveResBtn" onclick="saveAllResults()" style="margin-top:10px;">Spara alla matchresultat →</button>
+      <h2>Gruppfacit</h2>
+      <p class="desc">Fyll i den slutgiltiga ordningen i varje grupp efter att gruppspelet är klart.</p>
+      <div class="notice">💡 Dela länken med kollegorna. Data sparas i Google Sheets.</div>
+      <div class="admin-groups-grid" id="adminGroupsGrid"></div>
+      <button class="btn" id="saveGroupFacitBtn" onclick="saveGroupFacit()">Spara gruppfacit →</button>
     </div>
 
     <div class="card bonus-style">
       <h2>⭐ Bonusfacit</h2>
-      <p class="desc">Fyll i rätt svar allt eftersom — sparas direkt, poäng räknas om för alla.</p>
+      <p class="desc">Fyll i rätt svar allt eftersom — poäng räknas om för alla direkt.</p>
       <div class="adm-row"><span class="adm-lbl">🏆 VM-vinnare</span><select id="adm_winner"><option value="">— Välj —</option></select></div>
       <div class="adm-row"><span class="adm-lbl">🥈 2:a plats</span><select id="adm_second"><option value="">— Välj —</option></select></div>
       <div class="adm-row"><span class="adm-lbl">🥉 3:e plats</span><select id="adm_third"><option value="">— Välj —</option></select></div>
-      <div class="adm-row"><span class="adm-lbl">👟 Skytteligavinnare</span><input type="text" id="adm_topscorer" placeholder="Ex: Mbappe"></div>
+      <div class="adm-row"><span class="adm-lbl">👟 Skytteligavinnare</span><input type="text" id="adm_topscorer" placeholder="Ex: Gyökeres"></div>
       <div class="adm-row"><span class="adm-lbl">🟥 Första röda kortet</span><select id="adm_redcard"><option value="">— Välj —</option></select></div>
       <div class="adm-row"><span class="adm-lbl">🎽 Första självmålet</span><select id="adm_owngoal"><option value="">— Välj —</option></select></div>
       <div class="adm-row"><span class="adm-lbl">🥅 Totalt straffar</span><input type="number" id="adm_penalties" min="0" max="300" placeholder="Ex: 24"></div>
@@ -226,37 +222,34 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════
-//  KONFIGURATION — fylls i automatiskt
-// ═══════════════════════════════════════════
-let SCRIPT_URL = localStorage.getItem('vmScriptUrl') || '';
-
-const COUNTRIES = ['Argentina','Australien','Belgien','Brasilien','Canada','Colombia','Danmark','Ecuador','England','Frankrike','Ghana','Holland','Iran','Italien','Japan','Kroatien','Marocko','Mexico','Nederländerna','Nigeria','Norge','Polen','Portugal','Qatar','Saudiarabien','Senegal','Serbien','Spanien','Sverige','Schweiz','Sydkorea','Sydafrika','Tunisien','Tyskland','Uruguay','USA','Wales'].sort();
-
-const MATCHES = [
-  {id:'m1', home:'USA', away:'Mexico', group:'A'},
-  {id:'m2', home:'Canada', away:'Argentina', group:'A'},
-  {id:'m3', home:'Brasilien', away:'Spanien', group:'B'},
-  {id:'m4', home:'England', away:'Frankrike', group:'B'},
-  {id:'m5', home:'Tyskland', away:'Portugal', group:'C'},
-  {id:'m6', home:'Marocko', away:'Japan', group:'C'},
-  {id:'m7', home:'Nederländerna', away:'Italien', group:'D'},
-  {id:'m8', home:'Uruguay', away:'Senegal', group:'D'},
-  {id:'m9', home:'Colombia', away:'Kroatien', group:'E'},
-  {id:'m10', home:'Danmark', away:'Ecuador', group:'E'},
-  {id:'m11', home:'Sverige', away:'Serbien', group:'F'},
-  {id:'m12', home:'Australien', away:'Schweiz', group:'F'},
+// ═══════════════ DATA ═══════════════
+const GROUPS = [
+  {id:'A', teams:['Mexiko','Sydafrika','Sydkorea','Tjeckien']},
+  {id:'B', teams:['Kanada','Bosnien och Hercegovina','Qatar','Schweiz']},
+  {id:'C', teams:['Brasilien','Marocko','Haiti','Skottland']},
+  {id:'D', teams:['USA','Paraguay','Australien','Turkiet']},
+  {id:'E', teams:['Tyskland','Curaçao','Elfenbenskusten','Ecuador']},
+  {id:'F', teams:['Nederländerna','Japan','Sverige','Tunisien']},
+  {id:'G', teams:['Spanien','Kap Verde','Belgien','Egypten']},
+  {id:'H', teams:['Frankrike','Senegal','Saudiarabien','Uruguay']},
+  {id:'I', teams:['Iran','Nya Zeeland','Irak','Norge']},
+  {id:'J', teams:['Argentina','Algeriet','Österrike','Jordanien']},
+  {id:'K', teams:['Portugal','Colombia','Uzbekistan','DR Kongo']},
+  {id:'L', teams:['England','Kroatien','Panama','Ghana']},
 ];
 
+const ALL_TEAMS = GROUPS.flatMap(g => g.teams).sort();
 const BONUS_IDS = ['winner','second','third','topscorer','redcard','owngoal','penalties','goldball'];
 const COUNTRY_SEL = ['winner','second','third','redcard','owngoal'];
+const GROUP_POINTS = [5,5,5,5]; // 5p per rätt placering
 
-// ── Init ──
+let SCRIPT_URL = localStorage.getItem('vmScriptUrl') || '';
+
+// ═══════════════ INIT ═══════════════
 function init() {
   fillCountrySelects();
-  renderMatches();
-  renderResultsForm();
-
+  renderGroupsGrid();
+  renderAdminGroupsGrid();
   if (SCRIPT_URL) {
     document.getElementById('setupBanner').style.display = 'none';
     loadLeaderboard();
@@ -266,178 +259,193 @@ function init() {
 
 function saveScriptUrl() {
   const url = document.getElementById('scriptUrlInput').value.trim();
-  if (!url.startsWith('https://script.google.com')) {
-    toast('Verkar inte vara en giltig Apps Script-URL', true); return;
-  }
+  if (!url.startsWith('https://script.google.com')) { toast('Verkar inte vara en giltig URL', true); return; }
   SCRIPT_URL = url;
   localStorage.setItem('vmScriptUrl', url);
   document.getElementById('setupBanner').style.display = 'none';
-  toast('✅ URL sparad! Appen är nu ansluten till Google Sheets.');
-  loadLeaderboard();
-  loadAdminFacit();
+  toast('✅ URL sparad!');
+  loadLeaderboard(); loadAdminFacit();
 }
 
-// ── API-anrop ──
+// ═══════════════ API ═══════════════
 async function api(params) {
   if (!SCRIPT_URL) { toast('Klistra in din Apps Script-URL först!', true); return null; }
-  const qs = new URLSearchParams(params).toString();
-  const res = await fetch(SCRIPT_URL + '?' + qs);
+  const res = await fetch(SCRIPT_URL + '?' + new URLSearchParams(params).toString());
   return res.json();
 }
 
-// ── Fyll land-dropdowns ──
+// ═══════════════ COUNTRY SELECTS ═══════════════
 function fillCountrySelects() {
-  const opts = '<option value="">— Välj land —</option>' + COUNTRIES.map(c=>`<option>${c}</option>`).join('');
+  const opts = '<option value="">— Välj land —</option>' + ALL_TEAMS.map(c=>`<option>${c}</option>`).join('');
   [...COUNTRY_SEL.map(id=>'bq_'+id), ...COUNTRY_SEL.map(id=>'adm_'+id)].forEach(id=>{
     const el=document.getElementById(id); if(el) el.innerHTML=opts;
   });
 }
 
-// ── Render matchkort ──
-function renderMatches() {
-  document.getElementById('matchesGrid').innerHTML = MATCHES.map(m=>`
-    <div class="match-card">
-      <div class="mlbl">Grupp ${m.group}</div>
-      <div class="mteams"><span class="tn">${m.home}</span><span class="vs">–</span><span class="tn r">${m.away}</span></div>
-      <div class="srow">
-        <input class="sbox" type="number" min="0" max="20" placeholder="0" id="th_${m.id}">
-        <span class="ssep">:</span>
-        <input class="sbox" type="number" min="0" max="20" placeholder="0" id="ta_${m.id}">
-      </div>
-    </div>`).join('');
+// ═══════════════ GROUPS GRID (tippa) ═══════════════
+function renderGroupsGrid(existing) {
+  const ex = existing || {};
+  document.getElementById('groupsGrid').innerHTML = GROUPS.map(g => {
+    const teamOpts = '<option value="">— Välj —</option>' + g.teams.map(t=>`<option>${t}</option>`).join('');
+    const places = [
+      {num:'1',cls:'p1',label:'1:a'},
+      {num:'2',cls:'p2',label:'2:a'},
+      {num:'3',cls:'p3',label:'3:a'},
+      {num:'4',cls:'',label:'4:a'},
+    ];
+    const rows = places.map(p => {
+      const saved = ex[g.id]?.[p.num] || '';
+      const opts = '<option value="">— Välj —</option>' + g.teams.map(t=>`<option${t===saved?' selected':''}>${t}</option>`).join('');
+      return `<div class="place-row">
+        <span class="place-num ${p.cls}">${p.num}</span>
+        <select id="g${g.id}_${p.num}" onchange="validateGroup('${g.id}')">${opts}</select>
+      </div>`;
+    }).join('');
+    return `<div class="group-card" id="gc_${g.id}">
+      <div class="group-title">GRUPP ${g.id}</div>
+      ${rows}
+    </div>`;
+  }).join('');
 }
 
-// ── Spara ALLA matcher (batchvis, en i taget) ──
-async function submitAllTips() {
+function validateGroup(gid) {
+  const g = GROUPS.find(x=>x.id===gid);
+  const chosen = [1,2,3,4].map(i=>document.getElementById(`g${gid}_${i}`)?.value).filter(Boolean);
+  const unique = new Set(chosen);
+  const card = document.getElementById('gc_'+gid);
+  if (chosen.length !== unique.size) {
+    card.style.borderColor = '#ff5252';
+  } else {
+    card.style.borderColor = '';
+  }
+}
+
+// ═══════════════ SUBMIT GROUPS ═══════════════
+async function submitGroups() {
   const name = document.getElementById('playerName').value.trim();
   if (!name) { toast('Ange ditt namn!', true); return; }
 
-  const btn = document.getElementById('saveTipsBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin"></span>Sparar...';
+  // Validate no duplicates
+  for (const g of GROUPS) {
+    const vals = [1,2,3,4].map(i=>document.getElementById(`g${g.id}_${i}`)?.value).filter(Boolean);
+    if (new Set(vals).size !== vals.length) {
+      toast(`Grupp ${g.id}: samma lag valt flera gånger!`, true); return;
+    }
+  }
 
-  let ok = 0;
-  for (const m of MATCHES) {
-    const h = document.getElementById('th_'+m.id)?.value??'';
-    const a = document.getElementById('ta_'+m.id)?.value??'';
-    if (h===''&&a==='') continue; // hoppa över tomma
-    const res = await api({action:'saveTips', name, matchId:m.id, home:h, away:a});
+  const btn = document.getElementById('saveGroupsBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
+
+  let ok=0;
+  for (const g of GROUPS) {
+    const params = {action:'saveGroupTip', name, groupId: g.id};
+    for (let i=1;i<=4;i++) params['p'+i] = document.getElementById(`g${g.id}_${i}`)?.value||'';
+    const res = await api(params);
     if (res?.ok) ok++;
   }
 
-  btn.disabled = false;
-  btn.innerHTML = 'Spara alla matcher →';
-  toast(`✅ ${ok} matcher sparade för ${name}!`);
+  btn.disabled=false; btn.innerHTML='Spara gruppplaceringar →';
+  toast(`✅ ${ok} grupper sparade för ${name}!`);
 }
 
-// ── Spara bonussvar ──
+// ═══════════════ SUBMIT BONUS ═══════════════
 async function submitBonus() {
   const name = document.getElementById('playerName').value.trim();
   if (!name) { toast('Ange ditt namn!', true); return; }
-
   const btn = document.getElementById('saveBonusBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
-
-  const params = { action:'saveBonus', name };
+  const params = {action:'saveBonus', name};
   BONUS_IDS.forEach(id=>{ params[id]=(document.getElementById('bq_'+id)?.value||'').trim(); });
   const res = await api(params);
-
   btn.disabled=false; btn.innerHTML='Spara bonussvar →';
   if (res?.ok) toast('⭐ Bonussvar sparade!');
-  else toast('Något gick fel — försök igen', true);
+  else toast('Något gick fel', true);
 }
 
-// ── Leaderboard ──
+// ═══════════════ LEADERBOARD ═══════════════
 async function loadLeaderboard() {
   const lb = document.getElementById('leaderboard');
   lb.innerHTML='<div class="empty"><span class="spin light"></span> Laddar...</div>';
   const data = await api({action:'getLeaderboard'});
   if (!data||data.error) { lb.innerHTML=`<div class="empty"><p>Kunde inte ladda tabell.<br><small>${data?.error||''}</small></p></div>`; return; }
-
   const players = data.players||[];
   document.getElementById('playerCount').textContent = players.length + ' deltagare';
-
-  if (!players.length) {
-    lb.innerHTML='<div class="empty"><div class="ico">⚽</div><p>Inga tips ännu — bli den första!</p></div>'; return;
-  }
-
+  if (!players.length) { lb.innerHTML='<div class="empty"><div class="ico">⚽</div><p>Inga tips ännu!</p></div>'; return; }
   lb.innerHTML = `<table class="lb-table">
-    <thead><tr><th>#</th><th>Namn</th><th class="r" style="color:var(--green)">Match</th><th class="r" style="color:var(--gold)">Bonus</th><th class="r">Totalt</th></tr></thead>
+    <thead><tr><th>#</th><th>Namn</th><th class="r" style="color:var(--green)">Grupper</th><th class="r" style="color:var(--gold)">Bonus</th><th class="r">Totalt</th></tr></thead>
     <tbody>` + players.map((p,i)=>{
       const rc=i===0?'g':i===1?'s':i===2?'b':'';
       const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1;
-      return `<tr><td class="rk ${rc}">${medal}</td><td class="nm">${esc(p.name)}</td><td class="r mc">${p.matchPts}</td><td class="r bc">${p.bonusPts}</td><td class="r tc">${p.total}</td></tr>`;
+      return `<tr><td class="rk ${rc}">${medal}</td><td class="nm">${esc(p.name)}</td><td class="r mc">${p.groupPts}</td><td class="r bc">${p.bonusPts}</td><td class="r tc">${p.total}</td></tr>`;
     }).join('') + '</tbody></table>';
 }
 
-// ── Admin: matchresultat-formulär ──
-function renderResultsForm() {
-  document.getElementById('resultsForm').innerHTML = MATCHES.map(m=>`
-    <div class="res-row">
-      <span class="res-lbl">${m.home} – ${m.away}</span>
-      <input class="sbox" style="width:48px;font-size:19px;padding:6px;" type="number" min="0" max="20" placeholder="–" id="rh_${m.id}">
-      <span class="ssep">:</span>
-      <input class="sbox" style="width:48px;font-size:19px;padding:6px;" type="number" min="0" max="20" placeholder="–" id="ra_${m.id}">
-    </div>`).join('');
+// ═══════════════ ADMIN GROUPS GRID ═══════════════
+function renderAdminGroupsGrid(existing) {
+  const ex = existing || {};
+  document.getElementById('adminGroupsGrid').innerHTML = GROUPS.map(g => {
+    const places = [{num:'1',cls:'p1'},{num:'2',cls:'p2'},{num:'3',cls:'p3'},{num:'4',cls:''}];
+    const rows = places.map(p => {
+      const saved = ex[g.id]?.[p.num]||'';
+      const opts = '<option value="">— Välj —</option>' + g.teams.map(t=>`<option${t===saved?' selected':''}>${t}</option>`).join('');
+      return `<div class="admin-place-row">
+        <span class="admin-place-num ${p.cls}">${p.num}</span>
+        <select id="adm_g${g.id}_${p.num}">${opts}</select>
+      </div>`;
+    }).join('');
+    return `<div class="admin-group-card">
+      <div class="admin-group-title">GRUPP ${g.id}</div>
+      ${rows}
+    </div>`;
+  }).join('');
 }
 
-async function saveAllResults() {
-  const btn=document.getElementById('saveResBtn');
+async function saveGroupFacit() {
+  const btn = document.getElementById('saveGroupFacitBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
-
   let ok=0;
-  for (const m of MATCHES) {
-    const h=document.getElementById('rh_'+m.id)?.value??'';
-    const a=document.getElementById('ra_'+m.id)?.value??'';
-    if (h===''&&a==='') continue;
-    const res=await api({action:'saveResults', matchId:m.id, home:h, away:a});
+  for (const g of GROUPS) {
+    const params = {action:'saveGroupFacit', groupId:g.id};
+    for (let i=1;i<=4;i++) params['p'+i]=document.getElementById(`adm_g${g.id}_${i}`)?.value||'';
+    const res = await api(params);
     if (res?.ok) ok++;
   }
-  btn.disabled=false; btn.innerHTML='Spara alla matchresultat →';
-  toast(`✅ ${ok} resultat sparade!`);
+  btn.disabled=false; btn.innerHTML='Spara gruppfacit →';
+  toast(`✅ Gruppfacit sparat — poäng uppdaterade!`);
 }
 
-// ── Admin: bonusfacit ──
 async function loadAdminFacit() {
   const data = await api({action:'getFacit'});
   if (!data) return;
-  const f=data.facit||{}, r=data.results||{};
-
-  // Fyll i matchresultat-fälten
-  MATCHES.forEach(m=>{
-    if (r[m.id]) {
-      const rh=document.getElementById('rh_'+m.id), ra=document.getElementById('ra_'+m.id);
-      if(rh)rh.value=r[m.id].h; if(ra)ra.value=r[m.id].a;
-    }
-  });
-
-  // Fyll i facit-fälten
+  // Fill bonus facit
+  const f = data.facit||{};
   COUNTRY_SEL.forEach(id=>{ const el=document.getElementById('adm_'+id); if(el&&f[id])el.value=f[id]; });
   ['topscorer','goldball'].forEach(id=>{ const el=document.getElementById('adm_'+id); if(el&&f[id])el.value=f[id]; });
   const pen=document.getElementById('adm_penalties'); if(pen&&f.penalties)pen.value=f.penalties;
+  // Fill group facit
+  const gf = data.groupFacit||{};
+  renderAdminGroupsGrid(gf);
 }
 
 async function saveFacit() {
   const btn=document.getElementById('saveFacitBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
-
   const params={action:'saveFacit'};
   BONUS_IDS.forEach(id=>{ params[id]=(document.getElementById('adm_'+id)?.value||'').trim(); });
   const res=await api(params);
-
   btn.disabled=false; btn.innerHTML='Spara bonusfacit →';
-  if(res?.ok) toast('⭐ Bonusfacit sparat — poäng uppdaterade för alla!');
+  if(res?.ok) toast('⭐ Bonusfacit sparat!');
   else toast('Något gick fel',true);
 }
 
-// ── Tab-navigation ──
+// ═══════════════ TABS ═══════════════
 function showTab(tab,e) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
   if(e?.target)e.target.classList.add('active');
   if(tab==='table')loadLeaderboard();
-  if(tab==='admin'){loadAdminFacit();}
+  if(tab==='admin')loadAdminFacit();
 }
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -446,7 +454,7 @@ let tt;
 function toast(msg,err=false){
   const el=document.getElementById('toast');
   el.textContent=msg; el.className='toast show'+(err?' err':'');
-  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),3200);
+  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),3000);
 }
 
 init();
