@@ -267,19 +267,29 @@ function saveScriptUrl() {
   loadLeaderboard(); loadAdminFacit();
 }
 
-// ═══════════════ API (JSONP för att kringgå CORS) ═══════════════
+// ═══════════════ API ═══════════════
+// JSONP för GET (läsa), no-cors fetch för POST (skriva)
+const READ_ACTIONS = ['getLeaderboard','getFacit'];
+
 function api(params) {
   if (!SCRIPT_URL) { toast('Klistra in din Apps Script-URL först!', true); return Promise.resolve(null); }
-  return new Promise((resolve) => {
-    const cbName = 'cb_' + Date.now();
-    const script = document.createElement('script');
-    const p = new URLSearchParams(params);
-    p.set('callback', cbName);
-    window[cbName] = (data) => { resolve(data); delete window[cbName]; script.remove(); };
-    script.onerror = () => { resolve(null); delete window[cbName]; script.remove(); };
-    script.src = SCRIPT_URL + '?' + p.toString();
-    document.head.appendChild(script);
-  });
+  if (READ_ACTIONS.includes(params.action)) {
+    return new Promise((resolve) => {
+      const cbName = 'cb_' + Date.now();
+      const script = document.createElement('script');
+      const p = new URLSearchParams(params);
+      p.set('callback', cbName);
+      window[cbName] = (data) => { resolve(data); delete window[cbName]; script.remove(); };
+      script.onerror = () => { resolve(null); delete window[cbName]; script.remove(); };
+      script.src = SCRIPT_URL + '?' + p.toString();
+      document.head.appendChild(script);
+    });
+  } else {
+    // Skrivoperationer: no-cors fetch, kan inte läsa svar men data sparas
+    return fetch(SCRIPT_URL + '?' + new URLSearchParams(params).toString(), {mode:'no-cors'})
+      .then(() => ({ ok: true }))
+      .catch(() => ({ ok: false }));
+  }
 }
 
 // ═══════════════ COUNTRY SELECTS ═══════════════
@@ -362,9 +372,8 @@ async function submitBonus() {
   if (!name) { toast('Ange ditt namn!', true); return; }
   const btn = document.getElementById('saveBonusBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
-  const bonus = {};
-  BONUS_IDS.forEach(id=>{ bonus[id]=(document.getElementById('bq_'+id)?.value||'').trim(); });
-  const params = {action:'saveBonus', name, data: JSON.stringify(bonus)};
+  const params = {action:'saveBonus', name};
+  BONUS_IDS.forEach(id=>{ params[id]=(document.getElementById('bq_'+id)?.value||'').trim(); });
   const res = await api(params);
   btn.disabled=false; btn.innerHTML='Spara bonussvar →';
   if (res?.ok) toast('⭐ Bonussvar sparade!');
