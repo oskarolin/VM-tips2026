@@ -364,7 +364,9 @@ async function submitBonus() {
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sparar...';
   const params = {action:'saveBonus', name};
   BONUS_IDS.forEach(id=>{ params[id]=(document.getElementById('bq_'+id)?.value||'').trim(); });
+  console.log('Bonus params:', JSON.stringify(params));
   const res = await api(params);
+  console.log('Bonus svar:', JSON.stringify(res));
   btn.disabled=false; btn.innerHTML='Spara bonussvar →';
   if (res?.ok) toast('⭐ Bonussvar sparade!');
   else toast('Något gick fel', true);
